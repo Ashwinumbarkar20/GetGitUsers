@@ -1,12 +1,30 @@
 import React,{useContext} from 'react'
-import { GitUserContext } from '../Context'
+import { GitUserContext } from '../Context';
+import Navbar from '../Components/Navbar/Navbar';
+import './Home.css'
+import Userinfo from '../Components/Userinfo/Userinfo';
 
 export default function Home() {
-    const {user} =useContext(GitUserContext);
-    console.log(user);
+    const {serachedUsers,currentuser,Userfound,searchtext} =useContext(GitUserContext);
+   console.log("serached ",currentuser);
   return (
-    <div>
-     <p>{user}</p> 
-    </div>
+    <>
+    <Navbar />
+ 
+
+    {searchtext.length === 0 ?
+
+    null:
+    (Userfound===true)?
+      (  <div className='userinfodiv'>
+    <Userinfo user={currentuser} />
+  </div>):(Userfound===false)&&(
+<div className='userinfodiv'>
+    <p>User not found</p>
+  </div>)}
+
+
+     
+    </>
   )
 }
