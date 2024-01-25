@@ -7,13 +7,17 @@ const UserProvider = ({children}) => {
     const [searchtext,setSearchText]=useState("");
     const[serachedUsers,setSerachedUsers]=useState([]);
       const[currentuser,setcurrent]=useState({});
-      const[Userfound,setUserfound]=useState(false);
+      const[Userfound,setUserfound]=useState(null);
       const [repositories, setRepositories] = useState([]);
     const [followers, setFollowers] = useState([]);
     const[currentRepo,setCurrentRepo]=useState([]);
 
 const getuser=async(e)=>{
 e.preventDefault();
+if (searchtext.trim() === "") {
+  setUserfound(null);
+  return;
+}
    const  existingUser = serachedUsers.find((u) => u.login === searchtext);
 try{
       if (existingUser) {
@@ -32,8 +36,11 @@ try{
           setUserfound(true)
         } 
         else {
-            setUserfound(false)
+            setUserfound(false);
+            alert('User not found!');
+            setSearchText('');
             console.log('Error fetching user:', res.statusText);
+            
         }
       }
     } catch (error) {

@@ -1,5 +1,5 @@
 
-import React,{useContext, useEffect, useState} from 'react'
+import React,{useContext} from 'react'
 import { GitUserContext } from '../../Context';
 import {Link} from 'react-router-dom';
 import './Followers.css'
