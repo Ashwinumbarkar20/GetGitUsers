@@ -1,20 +1,21 @@
 /* eslint-disable react/prop-types */
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useContext} from 'react'
 import { useNavigate } from 'react-router-dom';
+import { GitUserContext } from '../../Context';
 import'./Userinfo.css'
 export default function Userinfo({user}) {
     const navigate = useNavigate();
-    const [repositories, setRepositories] = useState([]);
-    const [followers, setFollowers] = useState([]);
+    const {repositories, setRepositories, setFollowers} =useContext(GitUserContext);
 
     useEffect(() => {
-        // Fetch repositories when the component mounts
+       
         const fetchRepositories = async () => {
           try {
             const response = await fetch(`https://api.github.com/users/${user.login}/repos`);
             if (response.ok) {
               const data = await response.json();
               setRepositories(data);
+              
             } else {
               console.error('Error fetching repositories');
             }
@@ -25,7 +26,7 @@ export default function Userinfo({user}) {
     
         fetchRepositories();
     
-        // Fetch followers when the component mounts
+      
         const fetchFollowers = async () => {
           try {
             const response = await fetch(`https://api.github.com/users/${user.login}/followers`);
@@ -44,8 +45,8 @@ export default function Userinfo({user}) {
       }, [user.login]);
 
       const handleRepositoryClick = (repository) => {
-        
-        navigate(`/repository/${user.login}/${repository.name}`);
+       navigate(`/Repopage/${user.login}/${repository.name}`);
+       
       };
     
       const handleFollowersClick = () => {

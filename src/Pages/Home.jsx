@@ -5,26 +5,17 @@ import './Home.css'
 import Userinfo from '../Components/Userinfo/Userinfo';
 
 export default function Home() {
-    const {serachedUsers,currentuser,Userfound,searchtext} =useContext(GitUserContext);
-   console.log("serached ",currentuser);
+    const {currentuser,Userfound} =useContext(GitUserContext);
+   
   return (
     <>
     <Navbar />
- 
-
-    {searchtext.length === 0 ?
-
-    null:
+     {
     (Userfound===true)?
       (  <div className='userinfodiv'>
     <Userinfo user={currentuser} />
-  </div>):(Userfound===false)&&(
-<div className='userinfodiv'>
-    <p>User not found</p>
-  </div>)}
-
-
-     
+  </div>):null
+    }
     </>
   )
 }

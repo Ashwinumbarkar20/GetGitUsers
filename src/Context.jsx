@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext,useEffect } from 'react';
 export const GitUserContext = createContext();
 
 const UserProvider = ({children}) => {
@@ -8,6 +8,9 @@ const UserProvider = ({children}) => {
     const[serachedUsers,setSerachedUsers]=useState([]);
       const[currentuser,setcurrent]=useState({});
       const[Userfound,setUserfound]=useState(false);
+      const [repositories, setRepositories] = useState([]);
+    const [followers, setFollowers] = useState([]);
+
 const getuser=async(e)=>{
 e.preventDefault();
    const  existingUser = serachedUsers.find((u) => u.login === searchtext);
@@ -15,15 +18,14 @@ try{
       if (existingUser) {
         console.log('User already fetched:', existingUser);
         setcurrent(existingUser);
+        setUserfound(true)
       } 
       else {
-        
         const res = await fetch(`${url}/${searchtext}`);
-
         if (res.ok) 
         {
           const userData = await res.json();
-          console.log('Fetched user data:', userData);
+          
           setSerachedUsers([...serachedUsers, userData]);
           setcurrent(userData);
           setUserfound(true)
@@ -37,10 +39,23 @@ try{
       console.log('Error in API:', error);
     }
 }
-
+useEffect(() => {
+ 
+    
+  }, []);
 
     return (
-        <GitUserContext.Provider value={{searchtext,setSearchText,getuser,currentuser,Userfound}}>{children}
+        <GitUserContext.Provider value={{
+          searchtext,
+          setSearchText,
+          getuser,
+          currentuser,
+          Userfound,
+          followers, 
+          setFollowers,
+          repositories, 
+          setRepositories
+          }}>{children}
         </GitUserContext.Provider>
     );
 }
