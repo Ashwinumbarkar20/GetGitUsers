@@ -10,12 +10,12 @@ export default function Home() {
   return (
     <>
     <Navbar />
-     {
-    (Userfound===true)?
-      (  <div className='userinfodiv'>
-    <Userinfo user={currentuser} />
-  </div>):null
-    }
-    </>
-  )
+    {Userfound && (
+        <div className='userinfodiv'>
+          <Userinfo user={currentuser} />
+        </div>
+      ) }
+  </>
+)
+
 }

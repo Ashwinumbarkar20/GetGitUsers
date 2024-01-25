@@ -10,6 +10,7 @@ const UserProvider = ({children}) => {
       const[Userfound,setUserfound]=useState(false);
       const [repositories, setRepositories] = useState([]);
     const [followers, setFollowers] = useState([]);
+    const[currentRepo,setCurrentRepo]=useState([]);
 
 const getuser=async(e)=>{
 e.preventDefault();
@@ -42,7 +43,7 @@ try{
 useEffect(() => {
  
     
-  }, []);
+  }, [searchtext,currentuser,Userfound,followers,repositories,serachedUsers]);
 
     return (
         <GitUserContext.Provider value={{
@@ -54,7 +55,9 @@ useEffect(() => {
           followers, 
           setFollowers,
           repositories, 
-          setRepositories
+          setRepositories,
+          currentRepo,
+          setCurrentRepo
           }}>{children}
         </GitUserContext.Provider>
     );
